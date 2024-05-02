@@ -29,7 +29,7 @@ public class daily {
         System.out.println(findMax(nums));
     }
 }
-
+---------------------------------------------------------------
 //T.c- O(n^2) , S.c -O(1)
 import java.util.*;
 public class daily {
@@ -55,3 +55,29 @@ public class daily {
         System.out.println(findMax(nums));
     }
 }
+---------------------------------------------------------------
+//T.c -O(n) S.c-O(n)
+
+import java.util.*;
+public class daily {
+    public static int findMax(int[] nums) {
+        HashSet<Integer> set = new HashSet<>();
+        for (int num : nums) {
+            set.add(num);
+        }
+
+        int largest = Integer.MIN_VALUE;
+        for (int num : nums) {
+            if (num > largest && set.contains(-num)) {
+                largest = num;
+            }
+        }
+        return largest == Integer.MIN_VALUE ? -1 : largest;
+    }
+
+    public static void main(String args[]) {
+        int nums[] = { -10, 8, 6, -8, -2, -3 };// ans-3
+        System.out.println(findMax(nums));
+    }
+}
+
