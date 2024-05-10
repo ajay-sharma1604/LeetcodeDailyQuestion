@@ -1,0 +1,19 @@
+786- kTH Smallest prime fraction
+https://leetcode.com/problems/k-th-smallest-prime-fraction/description/?envType=daily-question&envId=2024-05-10
+
+
+// t.C- O(N^2) // s.c - O(N)
+class Solution {
+    public int[] kthSmallestPrimeFraction(int[] arr, int k) {
+        ArrayList<int[]> indices = new ArrayList<>(); // Store indices of corresponding fractions
+        for (int i = 0; i <= arr.length - 2; i++) {
+            for (int j = i + 1; j <= arr.length-1; j++) {
+                indices.add(new int[] { arr[i], arr[j] });
+            }
+        }
+        // Sort the indices based on the first value of each array
+        indices.sort(Comparator.comparingDouble(a ->(double) a[0]/a[1]));
+        int result[]= indices.get(k-1);
+        return result;
+    } 
+}
