@@ -1,0 +1,39 @@
+857. Minimum cost to Hire K workers
+https://leetcode.com/problems/minimum-cost-to-hire-k-workers/description/?envType=daily-question&envId=2024-05-11
+
+//t.c- O(nlogn)
+//s.c- 0(n+k)
+class Solution {
+    public double mincostToHireWorkers(int[] quality, int[] wage, int k) {
+        int n = quality.length;
+        double[][] workers = new double[n][2]; // {ratio, quality}
+        for (int i = 0; i < n; i++) {
+            workers[i][0] = (double) wage[i] / quality[i];
+            workers[i][1] = quality[i];
+        }
+        
+        // Sort workers based on the ratio
+        Arrays.sort(workers, (a, b) -> Double.compare(a[0], b[0]));
+        
+        PriorityQueue<Double> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
+        double totalQuality = 0;
+        double minCost = Double.MAX_VALUE;
+        
+        for (double[] worker : workers) {
+            totalQuality += worker[1];
+            maxHeap.offer(worker[1]);
+            
+            if (maxHeap.size() > k) {
+                totalQuality -= maxHeap.poll(); // Remove the worker with the maximum quality
+            }
+            
+            if (maxHeap.size() == k) {
+                // Calculate the cost for maintaining the ratio
+                double cost = totalQuality * worker[0];
+                minCost = Math.min(minCost, cost);
+            }
+        }
+        
+        return minCost;
+    }
+}
