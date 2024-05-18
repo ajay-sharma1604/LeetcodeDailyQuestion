@@ -1,0 +1,24 @@
+979.
+https://leetcode.com/problems/distribute-coins-in-binary-tree/?envType=daily-question&envId=2024-05-18
+
+//t.c-O(n)
+//s.c-O(h)
+
+class Solution {
+    public int ans;
+    public int distributeCoins(TreeNode root) {
+        ans =0;
+        countSteps(root);
+        return ans;
+    }
+
+    public int countSteps(TreeNode root){
+        if(root==null){
+            return 0;
+        }
+        int leftCoins = countSteps(root.left);
+        int rightCoins =countSteps(root.right);
+        ans +=Math.abs(leftCoins)+ Math.abs(rightCoins);
+        return (root.val-1) + leftCoins +rightCoins;
+    }
+}
