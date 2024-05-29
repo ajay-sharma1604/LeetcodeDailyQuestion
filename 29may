@@ -1,0 +1,31 @@
+1404. Number of Steps to Reduce a number in binary representation to one
+https://leetcode.com/problems/number-of-steps-to-reduce-a-number-in-binary-representation-to-one/description/?envType=daily-question&envId=2024-05-29
+//t.co-O(n)
+//s.c-O(1)
+import java.math.BigInteger;
+class Solution {
+    public int numSteps(String s) {
+        BigInteger result = new BigInteger(s,2);
+        int count=-0;
+
+       // while(res!=1)
+        while(!result.equals(BigInteger.ONE)){
+            count++;
+
+           // if(result%2==0)
+           if(result.mod(BigInteger.TWO).equals(BigInteger.ZERO)){
+            //RES=RES/2;
+            result=result.divide(BigInteger.TWO);
+           }
+           else{
+            //res=res+1
+            result= result.add(BigInteger.ONE);
+           }
+        }
+        return count;
+    }
+}
+
+//BigInteger.ZERO=0
+//BigInteger.ONE =1
+//BigInteger.TWO =2
