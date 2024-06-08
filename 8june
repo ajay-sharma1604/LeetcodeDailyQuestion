@@ -1,0 +1,40 @@
+523.Continuous Subarray Sum
+https://leetcode.com/problems/continuous-subarray-sum/?envType=daily-question&envId=2024-06-08
+
+class Solution {
+    public boolean checkSubarraySum(int[] nums, int k) {
+
+        //calculate prefix sum
+        int n=nums.length;
+        int[] prefixsum =new int[n];
+        prefixsum[0] =nums[0];
+        for(int i=1;i<n;i++) {
+            prefixsum[i]= prefixsum[i-1] + nums[i];
+        }
+
+        //calculate mod of k with prefix array
+        for(int i=0;i<n;i++){
+            prefixsum[i]= prefixsum[i]%k;
+        }
+
+        //create hashmap
+        HashMap<Integer ,Integer> map =new HashMap<>();
+        map.put(0,-1);
+
+        for(int i=0;i<n;i++) {
+            //if same element is present then check diff whether greater than 2
+            if(map.containsKey(prefixsum[i])){
+                int ind1 =map.get(prefixsum[i]);
+                int diff =i-ind1;
+                if(diff>=2){
+                    return true;
+                }
+            }
+             //if element is not present in map then add it
+                else{
+                    map.put(prefixsum[i],i);
+                }
+        }
+        return false;
+    }
+}
