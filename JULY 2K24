@@ -1,0 +1,25 @@
+2582.Pass the pillow
+https://leetcode.com/problems/pass-the-pillow/?envType=daily-question&envId=2024-07-06
+
+
+class Solution {
+    public int passThePillow(int n, int time) {
+      int position =1;
+      boolean forward =true;
+      for(int t =0; t <time; t++){
+        if(forward) {
+            position++;
+            if(position ==n){
+                forward =false;
+            }
+        }
+        else{
+            position--;
+            if(position==1){
+                forward =true;
+            }
+        }
+      }
+      return position;
+    }
+}
